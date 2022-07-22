@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Idea List</h1>
+{% for idea in ideas %}
+<div class="card">
+    <a href="{% url 'detail' idea.id%}">
+        <div class="card-content">
+            <span class="card-title">{{ idea.name }}</span>
+            <p>Category: {{ idea.catagory }}</p>
+            <p>Description: {{ idea.description }}</p>
+            <p>Tags: {{ idea.tags }}</p>
+            <p>Status: {{ idea.status }}</p>
+        </div>
+    </a>
+</div>
+{% endfor %}
+
+{% endblock %}

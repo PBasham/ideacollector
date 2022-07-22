@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Idea Details</h1>
+
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">{{ idea.name }}</span>
+        <p>Category: {{ idea.catagory }}</p>
+        <p>Description: {{ idea.description }}</p>
+        <p>Tags: {{ idea.tags }}</p>
+        <p>Status: {{ idea.status }}</p>
+    </div>
+</div>
+
+{% endblock %}
