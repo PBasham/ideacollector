@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Idea
 
 # Create your views here.
@@ -15,3 +16,13 @@ def ideas_index(request):
 def ideas_detail(request, idea_id):
     idea = Idea.objects.get(id=idea_id)
     return render(request, 'ideas/detail.html', { 'idea': idea})
+
+class IdeaCreate(CreateView):
+    model = Idea
+    fields = '__all__'
+class IdeaUpdate(UpdateView):
+    model = Idea
+    fields = '__all__'
+class IdeaDelete(DeleteView):
+    model = Idea
+    success_url = '/ideas/'

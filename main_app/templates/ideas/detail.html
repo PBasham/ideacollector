@@ -11,6 +11,10 @@
         <p>Tags: {{ idea.tags }}</p>
         <p>Status: {{ idea.status }}</p>
     </div>
+    <div class="card-action">
+        <a href="{% url 'ideas_update' idea.id %}">Edit</a>
+        <a href="{% url 'ideas_delete' idea.id %}">Delete</a>
+    </div>
 </div>
 
 {% endblock %}
