@@ -9,4 +9,5 @@ urlpatterns = [
     path('ideas/create/', views.IdeaCreate.as_view(), name='idea_create'),
     path('ideas/<int:pk>/update/', views.IdeaUpdate.as_view(), name='ideas_update'),
     path('ideas/<int:pk>/delete/', views.IdeaDelete.as_view(), name='ideas_delete'),
+    path('ideas/<int:idea_id>/add_progressupdate/', views.add_progressupdate, name='add_progressupdate'),
 ]

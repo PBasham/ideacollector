@@ -16,5 +16,38 @@
         <a href="{% url 'ideas_delete' idea.id %}">Delete</a>
     </div>
 </div>
-
+<div class="col s6">
+    <form action="{% url 'add_progressupdate' idea.id %}" method="POST">
+        {% csrf_token %}
+        {{ progressupdate_form.as_p }}
+        <input type="submit" class="btn" value="Update Progress">
+    </form>
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for update in idea.progressupdate_set.all %}
+            <tr>
+                <td>{{update.date}}</td>
+                <td>{{update.name}}</td>
+                <td>{{update.description}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+<script>
+    const dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
+</script>
 {% endblock %}

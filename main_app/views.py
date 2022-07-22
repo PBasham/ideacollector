@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Idea
+from .forms import ProgressUpdateForm
 
 # Create your views here.
 from django.http import HttpResponse
@@ -15,7 +16,8 @@ def ideas_index(request):
     return render(request, 'ideas/index.html', {'ideas': ideas})
 def ideas_detail(request, idea_id):
     idea = Idea.objects.get(id=idea_id)
-    return render(request, 'ideas/detail.html', { 'idea': idea})
+    progressupdate_form = ProgressUpdateForm()
+    return render(request, 'ideas/detail.html', { 'idea': idea, 'progressupdate_form': progressupdate_form})
 
 class IdeaCreate(CreateView):
     model = Idea
@@ -26,3 +28,11 @@ class IdeaUpdate(UpdateView):
 class IdeaDelete(DeleteView):
     model = Idea
     success_url = '/ideas/'
+
+def add_progressupdate(request, idea_id):
+    form = ProgressUpdateForm(request.POST)
+    if form.is_valid():
+        new_progressupdate = form.save(commit=False)
+        new_progressupdate.idea_id = idea_id
+        new_progressupdate.save()
+    return redirect('detail', idea_id=idea_id)

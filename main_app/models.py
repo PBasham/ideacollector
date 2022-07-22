@@ -1,6 +1,14 @@
+from statistics import mode
 from unicodedata import category
 from django.db import models
 from django.urls import reverse
+
+STATUS = {
+    ('P','Planning Stage'),
+    ('I','InProgress'),
+    ('N','Not Started'),
+    ('C','Completed'),
+}
 
 # Create your models here.
 class Idea(models.Model):
@@ -16,3 +24,16 @@ class Idea(models.Model):
     # This function gets the detail route with the current Ideas id.
     def get_absolute_url(self):
         return reverse('detail', kwargs={'idea_id': self.id})
+
+class ProgressUpdate(models.Model):
+    date = models.DateTimeField('Update on:')
+    name = models.CharField(max_length=100)
+    description = models.TextField(max_length=500)
+
+    idea = models.ForeignKey(Idea, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.date} - {self.name}"
+
+    class Meta:
+        ordering = ['-date']
