@@ -10,6 +10,16 @@ STATUS = {
     ('C','Completed'),
 }
 
+
+class Tags(models.Model):
+    name = models.CharField(max_length=25)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('tags_detail', kwargs={'pk': self.id})    
+
 # Create your models here.
 class Idea(models.Model):
     name = models.CharField(max_length=100)
@@ -17,6 +27,8 @@ class Idea(models.Model):
     description = models.TextField(max_length=500)
     tags = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
+    
+    taggs = models.ManyToManyField(Tags)
 
     def  __str__(self):
         return self.name
